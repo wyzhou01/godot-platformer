@@ -212,6 +212,14 @@ position = Vector2(-1480.5714, 287.4286)
 [node name="HPFill" parent="player/player/HealthBar/HPBg" parent_id_path=PackedInt32Array(1623948303, 112233441) index="0" unique_id=223344551]
 layout_mode = 0
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 scale = Vector2(1, 1e-05)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1755024325]
@@ -222,10 +230,10 @@ position = Vector2(-800, 280)
 arrow_speed = 300.0
 
 [node name="CharacterBody2D" parent="." unique_id=871606334 instance=ExtResource("3_epypp")]
-position = Vector2(-550, 285)
+position = Vector2(628, 284)
 
 [node name="弓箭手2" parent="." unique_id=1234567890 instance=ExtResource("3_epypp")]
-position = Vector2(-1800, 280)
+position = Vector2(-122, 283)
 
 [node name="弓箭手3" parent="." unique_id=1234567891 instance=ExtResource("3_epypp")]
 position = Vector2(-3000, 280)
