@@ -2,7 +2,7 @@ extends Node2D
 
 const DAMAGE := 1
 const MAX_LIFETIME := 4.0
-const ARROW_RANGE := 1800.0        # 约1个画面宽度
+const ARROW_RANGE := 1800.0
 
 var _velocity: Vector2 = Vector2.ZERO
 var _lifetime := 0.0
@@ -12,8 +12,14 @@ var _debug_frames: int = 0
 var _arrow_id: int = 0
 static var _total_arrows: int = 0
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hitbox: Area2D = $Hitbox
+var _sprite: AnimatedSprite2D
+var _hitbox: Area2D
+
+func _ready() -> void:
+	_sprite = $AnimatedSprite2D
+	_hitbox = $Hitbox
+	_hitbox.body_entered.connect(_on_hitbox_body_entered)
+	print("[Arrow] _ready: sprite=", _sprite)
 
 func initialize(direction: Vector2, speed: float) -> void:
 	_velocity = direction.normalized() * speed
@@ -21,24 +27,21 @@ func initialize(direction: Vector2, speed: float) -> void:
 	_arrow_id = _total_arrows
 	_total_arrows += 1
 	_debug_frames = 0
-	if sprite:
-		sprite.flip_v = false
-		sprite.flip_h = _velocity.x < 0
-	print("[Arrow] 初始化 #", _arrow_id, " | vel=", _velocity, " | flip_h=", sprite.flip_h)
-
-func _ready() -> void:
-	hitbox.body_entered.connect(_on_hitbox_body_entered)
+	if _sprite:
+		_sprite.flip_v = false
+		_sprite.flip_h = _velocity.x < 0
+	print("[Arrow] 初始化 #", _arrow_id, " | vel=", _velocity, " | flip_h=", _sprite.flip_h if _sprite else "null")
 
 func _physics_process(delta: float) -> void:
 	position += _velocity * delta
 	_debug_frames += 1
-	if sprite:
-		sprite.flip_h = _velocity.x < 0
-	# 只打印前12帧，方便调试
-	if _debug_frames <= 12 and _debug_frames % 4 == 0:
-		print("[Arrow #", _arrow_id, "] pos=", position, " vel=", _velocity, " flip_h=", sprite.flip_h)
+	if _sprite:
+		_sprite.flip_h = _velocity.x < 0
+	# 前3帧打印飞行状态
+	if _debug_frames <= 3:
+		print("[Arrow #", _arrow_id, "] pos=", position, " vel=", _velocity)
 
-	# 射程检测：超过1个画面宽度就消失
+	# 射程检测
 	if _start_pos.distance_to(global_position) > ARROW_RANGE:
 		queue_free()
 		return
