@@ -214,7 +214,7 @@ func _update_health_bar() -> void:
 		# scale.x 从 0→1 代表血量百分比
 		hp_fill.scale = Vector2(float(player_health) / float(MAX_HEALTH), 1.0)
 	if hp_label:
-		hp_label.text = str(player_health), " / ", MAX_HEALTH
+		hp_label.text = "%s / %s" % [player_health, MAX_HEALTH]
 
 func _on_invincible_timeout() -> void:
 	is_invincible = false
