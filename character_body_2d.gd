@@ -105,19 +105,22 @@ func _shoot_arrow(direction: Vector2) -> void:
 		print("[Enemy] 箭矢场景实例化失败")
 		return
 
-	# 方向Y归零，保证箭平行地面飞行
-	var fly_dir := direction.normalized()
+	# 朝向玩家的方向（Y归零保证平行地面）
+	var fly_dir := to_player.normalized()
 	fly_dir.y = 0.0
 	fly_dir = fly_dir.normalized()
 
 	var spawn_pos: Vector2 = global_position + fly_dir * 50.0 + Vector2(0, -10)
 	arrow.global_position = spawn_pos
 	if arrow.has_method("initialize"):
-		arrow.initialize(fly_dir, arrow_speed)
+		# 用朝向而非原始方向，防止玩家在正上方/下方时Y分量干扰
+		var arrow_dir := Vector2(1.0, 0.0) if facing_right else Vector2(-1.0, 0.0)
+		arrow.initialize(arrow_dir, arrow_speed)
 	else:
 		var arrow_body: CharacterBody2D = arrow.get_node_or_null("CharacterBody2D")
 		if arrow_body:
-			arrow_body.velocity = fly_dir * arrow_speed
+			var arrow_dir := Vector2(1.0, 0.0) if facing_right else Vector2(-1.0, 0.0)
+			arrow_body.velocity = arrow_dir * arrow_speed
 
 	get_parent().add_child(arrow)
 	arrow.add_to_group("arrow")
