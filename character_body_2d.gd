@@ -110,7 +110,7 @@ func _shoot_arrow(direction: Vector2) -> void:
 	fly_dir.y = 0.0
 	fly_dir = fly_dir.normalized()
 
-	var spawn_pos: Vector2 = global_position + fly_dir * 50.0 + Vector2(0, -20)
+	var spawn_pos: Vector2 = global_position + fly_dir * 50.0 + Vector2(0, -10)
 	arrow.global_position = spawn_pos
 	if arrow.has_method("initialize"):
 		arrow.initialize(fly_dir, arrow_speed)
