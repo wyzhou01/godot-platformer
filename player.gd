@@ -9,7 +9,7 @@ const DODGE_DURATION = 0.25
 const INVINCIBLE_DURATION = 1.2
 const MAX_HEALTH = 50                   # 50格血
 const PLAYER_DAMAGE = 3                # 玩家攻击:3刀砍死9血弓箭手
-const ENEMY_HIT_RADIUS := 300.0     # 攻击判定半径（约5格）
+const ENEMY_HIT_RADIUS := 550.0     # 攻击判定半径（约9格）
 
 # ===== 状态变量 =====
 var is_attacking = false

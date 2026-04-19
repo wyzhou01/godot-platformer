@@ -75,7 +75,7 @@ func _physics_process(delta: float) -> void:
 	if dir_sign != 0.0:
 		var prev := facing_right
 		facing_right = dir_sign > 0
-		$AnimatedSprite2D.flip_h = not facing_right
+		$AnimatedSprite2D.flip_h = facing_right
 
 	if dist <= detection_range:
 		# === 感知范围内 ===
@@ -114,14 +114,14 @@ func _shoot_arrow(direction: Vector2) -> void:
 	var spawn_pos: Vector2 = global_position + fly_dir * 50.0 + Vector2(0, -10)
 	arrow.global_position = spawn_pos
 	if arrow.has_method("initialize"):
-		# 朝向根据facing_right决定，确保箭和精灵朝向一致
-		var arrow_dir := Vector2(1.0, 0.0) if facing_right else Vector2(-1.0, 0.0)
+		# facing_right=true时朝右，箭头应该飞(-1,0)向左朝向玩家
+		var arrow_dir := Vector2(-1.0, 0.0) if facing_right else Vector2(1.0, 0.0)
 		print("[Enemy射箭]", get_name(), "facing_right=", facing_right, "→箭头方向=", arrow_dir)
 		arrow.initialize(arrow_dir, arrow_speed)
 	else:
 		var arrow_body: CharacterBody2D = arrow.get_node_or_null("CharacterBody2D")
 		if arrow_body:
-			var arrow_dir := Vector2(1.0, 0.0) if facing_right else Vector2(-1.0, 0.0)
+			var arrow_dir := Vector2(-1.0, 0.0) if facing_right else Vector2(1.0, 0.0)
 			arrow_body.velocity = arrow_dir * arrow_speed
 
 	get_parent().add_child(arrow)
