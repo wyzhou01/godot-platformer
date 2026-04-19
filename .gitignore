@@ -1,0 +1,18 @@
+# Godot
+.godot/
+*.import
+*.tscn.user
+*.tscn.user.*
+*.godot/
+export_presets.cfg
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temp
+*.tmp
+*.bak

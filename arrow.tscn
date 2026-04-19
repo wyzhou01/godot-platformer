@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bi724id5ba4gt"]
+
+[ext_resource type="Texture2D" uid="uid://c523vyqm2vwle" path="res://assets/GandalfHardcore Archer/arrow.png" id="1_l5ahi"]
+[ext_resource type="Script" path="res://arrow.gd" id="2_arrow"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_acd0x"]
+atlas = ExtResource("1_l5ahi")
+region = Rect2(0, 0, 30, 5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6a6ax"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_acd0x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Arrow" type="Node2D"]
+script = ExtResource("2_arrow")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1.25)
+scale = Vector2(3, 3)  # 放大3倍更明显
+sprite_frames = SubResource("SpriteFrames_6a6ax")
