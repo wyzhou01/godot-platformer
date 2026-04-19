@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 # ===== 导出参数 =====
-@export var health: int = 3                      # 弓箭手生命值（3点）
+@export var health: int = 9                       # 弓箭手生命值（9点）
 @export var speed: float = 50.0
 @export var detection_range: float = 800.0    # 感知玩家距离
-@export var attack_cooldown: float = 3.0       # 射箭间隔（秒），改大了减少频率
+@export var attack_cooldown: float = 1.0       # 射箭间隔（秒）
 @export var arrow_speed: float = 600.0         # 箭矢速度
 @export var is_archer: bool = false            # 是否为弓箭手（其他enemy=false）
 

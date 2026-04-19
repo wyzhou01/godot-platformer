@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://hgma0g6teelh"]
+
+[ext_resource type="Texture2D" uid="uid://4weaejrij5o5" path="res://fresh-water-tiles-music/8bit-water-currenty.png" id="1_x0f3k"]
+[ext_resource type="Texture2D" uid="uid://beqct2lg8t63r" path="res://fresh-water-tiles-music/8bit-water-currenty.svg" id="2_li38r"]
+[ext_resource type="Texture2D" uid="uid://oci15k6s5w02" path="res://fresh-water-tiles-music/8bit-water-flat.png" id="3_75q6g"]
+[ext_resource type="Texture2D" uid="uid://bc0eusih1qrek" path="res://fresh-water-tiles-music/8bit-water-flat.svg" id="4_a1mnk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_77cd1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_x0f3k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_li38r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_75q6g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_a1mnk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=935943439]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=943700046]
+position = Vector2(1, 5.2500005)
+scale = Vector2(9.499999, 3.8124998)
+sprite_frames = SubResource("SpriteFrames_77cd1")
+autoplay = "default"
+frame_progress = 0.8337059

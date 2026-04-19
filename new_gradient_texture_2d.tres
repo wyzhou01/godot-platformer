@@ -1,0 +1,9 @@
+[gd_resource type="GradientTexture2D" format=3 uid="uid://clpycre7uewqo"]
+
+[sub_resource type="Gradient" id="Gradient_x8ffd"]
+offsets = PackedFloat32Array(0, 0.48245615, 0.75877196, 0.9780702, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.8004911, 0.8004907, 0.8004905, 1, 0.71004736, 0.71004736, 0.71004736, 1, 1, 1, 1, 1, 0.7645401, 0.76449996, 0.76450974, 1)
+
+[resource]
+gradient = SubResource("Gradient_x8ffd")
+fill = 1

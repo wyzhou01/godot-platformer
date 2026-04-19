@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bhmbbcu3kyba8"]
+
+[ext_resource type="Texture2D" uid="uid://b3mm58aeul3s7" path="res://assets/pack_effect_fire_column/fire_column_medium/fire_column_medium_6.png" id="1_xpm8q"]
+[ext_resource type="Texture2D" uid="uid://d3oxsqjttvblq" path="res://assets/pack_effect_fire_column/fire_column_medium/fire_column_medium_7.png" id="2_nctd2"]
+[ext_resource type="Texture2D" uid="uid://c1omaw2nctm0i" path="res://assets/pack_effect_fire_column/fire_column_medium/fire_column_medium_8.png" id="3_eubjk"]
+[ext_resource type="Texture2D" uid="uid://dnn0kymivqwqh" path="res://assets/pack_effect_fire_column/fire_column_medium/fire_column_medium_9.png" id="4_iib7n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ckfh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_xpm8q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nctd2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_eubjk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_iib7n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=1668108966]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=77084875]
+position = Vector2(-1, -14)
+scale = Vector2(1.4777777, 0.91838896)
+sprite_frames = SubResource("SpriteFrames_6ckfh")
+autoplay = "default"
+frame_progress = 0.39843222
