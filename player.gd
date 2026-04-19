@@ -171,12 +171,15 @@ func _check_melee_hit() -> void:
 	if not is_attacking:
 		return
 	for enemy in get_tree().get_nodes_in_group("enemy"):
+		# 跳过已死亡的敌人（queue_free前还在group里）
+		if enemy.get("is_dead") == true:
+			continue
 		var dist := global_position.distance_to(enemy.global_position)
-		print("[Player] 攻击判定 | ", enemy.get_name(), " | 距离=", dist, " < ", ENEMY_HIT_RADIUS, " ? ", dist < ENEMY_HIT_RADIUS)
 		if dist < ENEMY_HIT_RADIUS:
 			if enemy.has_method("take_damage"):
 				enemy.take_damage(PLAYER_DAMAGE)
 				print("[Player] 砍中!", enemy.get_name(), "! 距离=", dist)
+			break  # 每攻击只命中一个敌人
 			break
 
 # ===== 受伤 =====
