@@ -213,9 +213,9 @@ position = Vector2(-1480.5714, 287.4286)
 color = Color(0.6453831, 0.7233244, 0.984808, 1)
 
 [node name="弓箭手" parent="." unique_id=2120765706 instance=ExtResource("3_epypp")]
-position = Vector2(183, 277)
+position = Vector2(-600, 280)
 
 [node name="CharacterBody2D" parent="." unique_id=871606334 instance=ExtResource("3_epypp")]
-position = Vector2(290, 279)
+position = Vector2(-350, 285)
 
 [editable path="player"]

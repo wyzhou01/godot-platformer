@@ -118,13 +118,13 @@ func _shoot_arrow(direction: Vector2) -> void:
 	arrow.global_position = spawn_pos
 	if arrow.has_method("initialize"):
 		# 朝向根据facing_right决定，确保箭和精灵朝向一致
-		var arrow_dir := Vector2(1.0, 0.0) if facing_right else Vector2(-1.0, 0.0)
+		var arrow_dir := Vector2(-1.0, 0.0) if facing_right else Vector2(1.0, 0.0)
 		print("[Enemy射箭]", get_name(), "facing_right=", facing_right, "→箭头方向=", arrow_dir)
 		arrow.initialize(arrow_dir, arrow_speed)
 	else:
 		var arrow_body: CharacterBody2D = arrow.get_node_or_null("CharacterBody2D")
 		if arrow_body:
-			var arrow_dir := Vector2(1.0, 0.0) if facing_right else Vector2(-1.0, 0.0)
+			var arrow_dir := Vector2(-1.0, 0.0) if facing_right else Vector2(1.0, 0.0)
 			arrow_body.velocity = arrow_dir * arrow_speed
 
 	get_parent().add_child(arrow)
