@@ -73,12 +73,15 @@ func _physics_process(delta: float) -> void:
 
 	# 更新朝向（朝向玩家）
 	if dir_sign != 0.0:
-		var prev := facing_right
 		facing_right = dir_sign > 0
 		$AnimatedSprite2D.flip_h = facing_right
 
-	if dist <= detection_range:
-		# === 感知范围内 ===
+	# 屏幕检测：弓箭手只在自己的画面区域内射击（约512px宽，对应Camera2D zoom=2.5）
+	var screen_width: float = 512.0
+	var on_same_screen: bool = absf(player.global_position.x - global_position.x) < screen_width
+
+	if dist <= detection_range and on_same_screen:
+		# === 感知范围内 + 同画面 ===
 		velocity = Vector2.ZERO  # 弓箭手不追踪，原地射箭
 
 		attack_timer -= delta
@@ -89,7 +92,7 @@ func _physics_process(delta: float) -> void:
 
 		_play_anim("attack")
 	else:
-		# === 超出范围：待机 ===
+		# === 超出范围或不同画面：待机 ===
 		velocity = Vector2.ZERO
 		attack_timer = 0.0
 		_play_anim("idle")
