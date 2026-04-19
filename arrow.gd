@@ -5,7 +5,7 @@ const MAX_LIFETIME := 4.0
 
 var _velocity: Vector2 = Vector2.ZERO
 var _lifetime := 0.0
-var _hit_players := set()  # 已命中过的玩家，防止一箭多伤
+var _hit_players: Array[Node2D] = []
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: Area2D = $Hitbox
@@ -34,9 +34,9 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	# 检查是否在 player group 且未命中过
 	if not body.is_in_group("player"):
 		return
-	if body in _hit_players:
+	if _hit_players.has(body):
 		return
-	_hit_players.add(body)
+	_hit_players.append(body)
 
 	print("[Arrow] 击中玩家！")
 	if body.has_method("take_damage"):
