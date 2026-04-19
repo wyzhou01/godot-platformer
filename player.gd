@@ -8,8 +8,8 @@ const DODGE_SPEED = 480.0
 const DODGE_DURATION = 0.25
 const INVINCIBLE_DURATION = 1.2
 const MAX_HEALTH = 50                   # 50格血
-const PLAYER_DAMAGE = 50               # 玩家攻击:1刀砍死弓箭手
-const ENEMY_HIT_RADIUS := 600.0        # 攻击判定半径（600px足够打到远处的弓箭手）
+const PLAYER_DAMAGE = 3                # 玩家攻击:3刀砍死9血弓箭手
+const ENEMY_HIT_RADIUS := 150.0     # 攻击判定半径（150px，近战范围）
 
 # ===== 状态变量 =====
 var is_attacking = false
