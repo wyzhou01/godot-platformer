@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var detection_range: float = 800.0    # 感知玩家距离
 @export var attack_cooldown: float = 1.0       # 射箭间隔（秒）
 @export var arrow_speed: float = 600.0         # 箭矢速度
-@export var is_archer: bool = false            # 是否为弓箭手（其他enemy=false）
+@export var is_archer: bool = true            # 是否为弓箭手（默认true，同一场景两个都是）
 
 # ===== 内部状态 =====
 var is_acting: bool = false                   # 动画锁（受伤/死亡动画期间禁止其他行为）
