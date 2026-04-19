@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 		sprite.flip_h = _velocity.x < 0
 	# 只打印前12帧，方便调试
 	if _debug_frames <= 12 and _debug_frames % 4 == 0:
-		print("[Arrow #", _arrow_id, "] pos=(%d,%d) vel=%s flip_h=%s" % [position.x, position.y, _velocity, sprite.flip_h])
+		print("[Arrow #", _arrow_id, "] pos=", position, " vel=", _velocity, " flip_h=", sprite.flip_h)
 
 	# 射程检测：超过1个画面宽度就消失
 	if _start_pos.distance_to(global_position) > ARROW_RANGE:
