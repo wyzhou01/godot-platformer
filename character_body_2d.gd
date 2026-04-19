@@ -106,7 +106,7 @@ func _shoot_arrow(direction: Vector2) -> void:
 		return
 
 	# 朝向玩家的方向（Y归零保证平行地面）
-	var fly_dir := to_player.normalized()
+	var fly_dir: Vector2 = direction.normalized()
 	fly_dir.y = 0.0
 	fly_dir = fly_dir.normalized()
 
