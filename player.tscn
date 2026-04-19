@@ -624,4 +624,48 @@ position = Vector2(124, -10)
 shape = SubResource("RectangleShape2D_6o2m3")
 disabled = true
 
+[node name="HealthBar" type="CanvasLayer" parent="player" unique_id=998877661]
+
+[node name="HPBg" type="ColorRect" parent="player/HealthBar" unique_id=112233441]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -210.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = 45.0
+color = Color(0.2, 0.05, 0.05, 1)
+
+[node name="HPFill" type="ColorRect" parent="player/HealthBar/HPBg" unique_id=223344551]
+anchors_preset = 10
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0)
+pivot_offset = Vector2(91, 0)
+color = Color(0.85, 0.15, 0.15, 1)
+
+[node name="HPLabel" type="Label" parent="player/HealthBar/HPBg" unique_id=334455662]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -15.0
+offset_right = 40.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "50 / 50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="animation_finished" from="player/AnimatedSprite2D" to="player" method="_on_animated_sprite_2d_animation_finished"]

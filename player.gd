@@ -25,6 +25,8 @@ var dodge_direction := 1               # 1=右,-1=左
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area: Area2D = $"attack area"
+@onready var hp_fill: ColorRect = $HealthBar/HPBg/HPFill
+@onready var hp_label: Label = $HealthBar/HPBg/HPLabel
 @onready var combo_timer: Timer = Timer.new()
 @onready var invincible_timer: Timer = Timer.new()
 @onready var dodge_timer_node: Timer = Timer.new()
@@ -66,6 +68,7 @@ func _ready() -> void:
 		sprite.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
 
 	print("[Player] 初始化完成 | 生命=", player_health)
+	_update_health_bar()
 
 # ===== 主循环 =====
 func _physics_process(delta: float) -> void:
@@ -183,6 +186,7 @@ func take_damage(amount: int = 1) -> void:
 
 	player_health -= amount
 	print("[Player] 被击中!剩余生命:", player_health)
+	_update_health_bar()
 
 	is_invincible = true
 	invincible_timer.start(INVINCIBLE_DURATION)
@@ -203,6 +207,14 @@ func flash_hurt() -> void:
 		await get_tree().create_timer(0.15).timeout
 		if sprite:
 			sprite.modulate = Color.WHITE
+
+func _update_health_bar() -> void:
+	if hp_fill:
+		hp_fill.scale.y = 1.0  # 恢复高度
+		# scale.x 从 0→1 代表血量百分比
+		hp_fill.scale = Vector2(float(player_health) / float(MAX_HEALTH), 1.0)
+	if hp_label:
+		hp_label.text = str(player_health), " / ", MAX_HEALTH
 
 func _on_invincible_timeout() -> void:
 	is_invincible = false
