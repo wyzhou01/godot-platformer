@@ -76,9 +76,6 @@ func _physics_process(delta: float) -> void:
 		var prev := facing_right
 		facing_right = dir_sign > 0
 		$AnimatedSprite2D.flip_h = not facing_right
-		if prev != facing_right:
-			print("[Enemy朝向]", get_name(), "player_x=", player.global_position.x, "
-archer_x=", global_position.x, "dir_sign=", dir_sign, "→facing_right=", facing_right, "sprite.flip_h=", $AnimatedSprite2D.flip_h)
 
 	if dist <= detection_range:
 		# === 感知范围内 ===
