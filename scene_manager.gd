@@ -24,7 +24,6 @@ var level_chain: Array[String] = [
 ]
 
 func _ready():
-	# 创建淡入淡出遮罩
 	fade_overlay = ColorRect.new()
 	fade_overlay.color = Color.BLACK
 	fade_overlay.size = DisplayServer.window_get_size()
@@ -78,7 +77,6 @@ func goto_next_level():
 	if idx >= 0 and idx < level_chain.size() - 1:
 		transition_to_scene(level_chain[idx + 1])
 	else:
-		# 最后一关 -> 回到主菜单
 		goto_main_menu()
 
 func goto_main_menu():
@@ -96,14 +94,16 @@ func save_checkpoint(pos: Vector2, level_path: String):
 
 func restart_from_checkpoint():
 	if has_checkpoint:
+		# 先清除场上所有箭矢，防止复活后被旧箭再次击中
+		for arrow in get_tree().get_nodes_in_group("arrow"):
+			arrow.queue_free()
+
 		await fade_to_black()
 		get_tree().change_scene_to_file(checkpoint_level_path)
-		# 等待场景加载完成后再设置玩家位置
 		await get_tree().process_frame
 		var player = get_tree().get_first_node_in_group("player")
 		if player:
 			player.global_position = checkpoint_position
-			# 无敌帧保护
 			if player.has_method("set_invincible"):
 				player.set_invincible(true)
 		await fade_from_black()
