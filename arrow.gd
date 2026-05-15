@@ -1,64 +1,52 @@
-extends Node2D
+extends Area2D
 
-const DAMAGE := 1
-const MAX_LIFETIME := 4.0
-const ARROW_RANGE := 1800.0
+# 存档点（箭头）
+var is_activated: bool = false
 
-var _velocity: Vector2 = Vector2.ZERO
-var _lifetime := 0.0
-var _hit_players: Array[Node2D] = []
-var _start_pos: Vector2 = Vector2.ZERO
-var _debug_frames: int = 0
-var _arrow_id: int = 0
-static var _total_arrows: int = 0
+@onready var sprite = $AnimatedSprite2D
+@onready var collision_shape = $CollisionShape2D
 
-var _sprite: AnimatedSprite2D
-var _hitbox: Area2D
+func _ready():
+	# 初始状态为未激活
+	sprite.play("default")
+	sprite.modulate = Color(1, 1, 1, 0.5) # 半透明表示未激活
+	# 确保碰撞体启用
+	if collision_shape:
+		collision_shape.disabled = false
+	# 连接信号
+	if not body_entered.is_connected(_on_body_entered):
+		body_entered.connect(_on_body_entered)
 
-func _ready() -> void:
-	_sprite = $AnimatedSprite2D
-	_hitbox = $Hitbox
-	_hitbox.body_entered.connect(_on_hitbox_body_entered)
-	print("[Arrow] _ready: sprite=", _sprite)
+func _on_body_entered(body: Node2D):
+	if is_activated: return
+	if not body.is_in_group("player"): return
+	
+	is_activated = true
+	
+	# 激活：全亮并闪烁
+	sprite.modulate = Color(1, 1, 1, 1)
+	
+	# 闪烁动画
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate:a", 0.3, 0.3)
+	tween.tween_property(sprite, "modulate:a", 1.0, 0.3)
+	tween.set_loops(3)
+	
+	# 保存 checkpoint 到 SceneManager
+	if has_node("/root/SceneManager"):
+		SceneManager.save_checkpoint(global_position, get_tree().current_scene.scene_file_path)
+	
+	# 显示提示文字
+	_show_checkpoint_text()
 
-func initialize(direction: Vector2, speed: float) -> void:
-	_velocity = direction.normalized() * speed
-	_start_pos = global_position
-	_arrow_id = _total_arrows
-	_total_arrows += 1
-	_debug_frames = 0
-	if _sprite:
-		_sprite.flip_v = false
-		_sprite.flip_h = _velocity.x < 0
-	print("[Arrow] 初始化 #", _arrow_id, " | vel=", _velocity, " | flip_h=", _sprite.flip_h if _sprite else "null")
-
-func _physics_process(delta: float) -> void:
-	position += _velocity * delta
-	_debug_frames += 1
-	if _sprite:
-		_sprite.flip_h = _velocity.x < 0
-	# 前3帧打印飞行状态
-	if _debug_frames <= 3:
-		print("[Arrow #", _arrow_id, "] pos=", position, " vel=", _velocity)
-
-	# 射程检测
-	if _start_pos.distance_to(global_position) > ARROW_RANGE:
-		queue_free()
-		return
-
-	# 超时删除
-	_lifetime += delta
-	if _lifetime > MAX_LIFETIME:
-		queue_free()
-
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("player"):
-		return
-	if _hit_players.has(body):
-		return
-	_hit_players.append(body)
-
-	print("[Arrow] 击中玩家！")
-	if body.has_method("take_damage"):
-		body.take_damage(DAMAGE)
-	queue_free()
+func _show_checkpoint_text():
+	var label = Label.new()
+	label.text = "Checkpoint Saved!"
+	label.modulate = Color(0.3, 1, 0.3, 1) # 绿色
+	label.position = Vector2(0, -40)
+	add_child(label)
+	
+	var tween = create_tween()
+	tween.tween_property(label, "position", label.position + Vector2(0, -30), 1.0)
+	tween.parallel().tween_property(label, "modulate:a", 0, 1.0)
+	tween.tween_callback(label.queue_free)

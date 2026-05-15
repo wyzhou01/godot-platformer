@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cb0ds1nbopc0x"]
+
+[ext_resource type="Texture2D" uid="uid://bxl6qiulun8hy" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX3/frames/BloodMage_skill3_frame1.png" id="1_5ice0"]
+[ext_resource type="Script" uid="uid://bidb5rgybh7c1" path="res://最终boss技能2.gd" id="1_flpv7"]
+[ext_resource type="Texture2D" uid="uid://cfmni3qan7byp" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX3/frames/BloodMage_skill3_frame2.png" id="2_flpv7"]
+[ext_resource type="Texture2D" uid="uid://cu7wsa8onijxf" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX3/frames/BloodMage_skill3_frame3.png" id="3_s40b4"]
+[ext_resource type="Texture2D" uid="uid://b75ed366eoy1e" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX3/frames/BloodMage_skill3_frame4.png" id="4_nckot"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tpk1j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5ice0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_flpv7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_s40b4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nckot")
+}],
+"loop": true,
+"name": &"attack1",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2j4fh"]
+size = Vector2(54, 70)
+
+[node name="Node2D" type="Node2D" unique_id=1114216608]
+script = ExtResource("1_flpv7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=676910161]
+sprite_frames = SubResource("SpriteFrames_tpk1j")
+animation = &"attack1"
+frame_progress = 0.7025465
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1121219439]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1769339195]
+position = Vector2(33, 1)
+shape = SubResource("RectangleShape2D_2j4fh")
+disabled = true

@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://enbqx6uosxyi"]
+
+[ext_resource type="Texture2D" uid="uid://dwure56ey7btr" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX1/part3(end)/frames/BloodMage_skill1_end_frame6.png" id="1_htgur"]
+[ext_resource type="Texture2D" uid="uid://16wwccyx5fph" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX1/part1(start)/frames/BloodMage_skill1_start_frame1.png" id="1_tqi3i"]
+[ext_resource type="Script" uid="uid://bla48kuafmnfe" path="res://最终boss技能1.gd" id="1_yaox3"]
+[ext_resource type="Texture2D" uid="uid://btr7fncktsl3b" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX1/part2(loop)/frames/BloodMage_skill1_loop_frame1.png" id="9_5fw4d"]
+[ext_resource type="Texture2D" uid="uid://dn2rf4c61a4qq" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX1/part2(loop)/frames/BloodMage_skill1_loop_frame2.png" id="10_88pw3"]
+[ext_resource type="Texture2D" uid="uid://xu62ue8uolqr" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX1/part2(loop)/frames/BloodMage_skill1_loop_frame3.png" id="11_qb4ak"]
+[ext_resource type="Texture2D" uid="uid://o64eggq3a7gh" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX1/part2(loop)/frames/BloodMage_skill1_loop_frame4.png" id="12_ad3vp"]
+[ext_resource type="Texture2D" uid="uid://fyqdb1sjlwvp" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX1/part2(loop)/frames/BloodMage_skill1_loop_frame5.png" id="13_rg0v1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5vv8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_htgur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_tqi3i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5fw4d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_88pw3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_qb4ak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ad3vp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_rg0v1")
+}],
+"loop": false,
+"name": &"attack1",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yaox3"]
+size = Vector2(75, 69)
+
+[node name="Node2D" type="Node2D" unique_id=2073144117]
+script = ExtResource("1_yaox3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1868993146]
+sprite_frames = SubResource("SpriteFrames_5vv8c")
+animation = &"attack1"
+frame = 6
+frame_progress = 1.0
+
+[node name="attackarea" type="Area2D" parent="." unique_id=1101420197]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackarea" unique_id=1007240367]
+position = Vector2(-2.5, 4.5)
+shape = SubResource("RectangleShape2D_yaox3")
+disabled = true

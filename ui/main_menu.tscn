@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://c0m2h0pwwly3f"]
+
+[ext_resource type="Script" path="res://ui/main_menu.gd" id="1_ak3bo"]
+
+[sub_resource type="Theme" id="Theme_u3tak"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c0u0l"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_ak3bo")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+custom_min_size = Vector2(200, 60)
+text = "Game 2.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme = SubResource("Theme_u3tak")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+custom_min_size = Vector2(200, 40)
+text = "Start Game"
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+custom_min_size = Vector2(200, 40)
+text = "Continue"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_continue_pressed"]

@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://bi724id5ba4gt"]
 
+[ext_resource type="Script" uid="uid://c12bejxa7xyko" path="res://arrow.gd" id="1_2ndhl"]
 [ext_resource type="Texture2D" uid="uid://c523vyqm2vwle" path="res://assets/GandalfHardcore Archer/arrow.png" id="1_l5ahi"]
-[ext_resource type="Script" path="res://arrow.gd" id="2_arrow"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ndhl"]
+size = Vector2(38, 11)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_acd0x"]
 atlas = ExtResource("1_l5ahi")
@@ -18,19 +21,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
-radius = 15.0
+[node name="Area2D" type="Area2D" unique_id=835014532]
+script = ExtResource("1_2ndhl")
 
-[node name="Arrow" type="Node2D"]
-script = ExtResource("2_arrow")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=211894212]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_2ndhl")
+disabled = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 1.25)
-scale = Vector2(1, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=261117755]
+position = Vector2(0, 1.2500002)
+scale = Vector2(1, 1.5)
 sprite_frames = SubResource("SpriteFrames_6a6ax")
-autoplay = "default"
-
-[node name="Hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("CircleShape2D_hit")
