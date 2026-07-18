@@ -15,12 +15,12 @@ var has_checkpoint: bool = false
 var level_chain: Array[String] = [
 	"res://node_2d.tscn",
 	"res://level3.tscn",
-	"res://level。2.tscn",
-	"res://level。3.tscn",
+	"res://level_2.tscn",
+	"res://level_3.tscn",
 	"res://level4.tscn",
-	"res://level。5.tscn",
+	"res://level_5.tscn",
 	"res://level.6.tscn",
-	"res://level。7.tscn",
+	"res://level_7.tscn",
 ]
 
 func _ready():

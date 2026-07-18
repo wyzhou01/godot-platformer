@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cb0ds1nbopc0x"]
 
 [ext_resource type="Texture2D" uid="uid://bxl6qiulun8hy" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX3/frames/BloodMage_skill3_frame1.png" id="1_5ice0"]
-[ext_resource type="Script" uid="uid://bidb5rgybh7c1" path="res://最终boss技能2.gd" id="1_flpv7"]
+[ext_resource type="Script" uid="uid://bidb5rgybh7c1" path="res://final_boss_skill2.gd" id="1_flpv7"]
 [ext_resource type="Texture2D" uid="uid://cfmni3qan7byp" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX3/frames/BloodMage_skill3_frame2.png" id="2_flpv7"]
 [ext_resource type="Texture2D" uid="uid://cu7wsa8onijxf" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX3/frames/BloodMage_skill3_frame3.png" id="3_s40b4"]
 [ext_resource type="Texture2D" uid="uid://b75ed366eoy1e" path="res://Pixel Art VFX - Blood Mage - FREE Version/VFX3/frames/BloodMage_skill3_frame4.png" id="4_nckot"]

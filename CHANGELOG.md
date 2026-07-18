@@ -94,3 +94,95 @@
 ---
 
 *如需还原某项修改，查看对应 git commit 即可。*
+---
+
+## 2026-07-18 — Stage 0: 基础设施清理
+
+> 项目：wyzhou01/godot-platformer
+> 执行：嘟嘟（MiniMax-M3）
+> 测试：待阿迈手动跑游戏验证
+
+### ✨ 重构
+
+#### 1. ASCII 化所有中文文件名（23 个）
+**问题**：23 个核心文件使用中文文件名（`最终boss.tscn`、`英军！.tscn`、`level。2.tscn` 等），导致：
+- GitHub Actions、Godot 资源缓存对中文路径支持差
+- 国际化协作者阅读困难
+- 部分 CLI 工具转义问题
+
+**修复**：建立完整映射表，批量改名
+
+| 原名 | 新名 |
+|------|------|
+| `最终boss.gd` | `final_boss.gd` |
+| `最终boss.tscn` | `final_boss.tscn` |
+| `最终boss技能.tscn` | `final_boss_skill.tscn` |
+| `最终boss技能1.gd` | `final_boss_skill1.gd` |
+| `最终boss技能2.gd` | `final_boss_skill2.gd` |
+| `最终boss技能2.tscn` | `final_boss_skill2.tscn` |
+| `追逐战boss.gd` | `chase_boss.gd` |
+| `第四关追逐战boss.tscn` | `level4_chase_boss.tscn` |
+| `英军！.tscn` | `british_army.tscn` |
+| `弓箭手.tscn` | `archer.tscn` |
+| `哇特儿.tscn` | `water.tscn` |
+| `发呀的红.tscn` | `fire_red.tscn` |
+| `专场.tscn` | `cutscene.tscn` |
+| `骑士.tscn` | `knight_unit.tscn` |
+| `level。2.tscn` | `level_2.tscn` |
+| `level。3.tscn` | `level_3.tscn` |
+| `level。5.tscn` | `level_5.tscn` |
+| `level。6 burn.tscn` | `level_6_burn.tscn` |
+| `level。7.tscn` | `level_7.tscn` |
+
+同时同步更新所有引用：
+- `scene_manager.gd` 的 `level_chain` 数组
+- `boss2.gd` 的 `preload("res://骑士.tscn")`
+- 所有 `.tscn` 文件的 `[ext_resource type="Script" path="res://..."]` 和 `[ext_resource type="PackedScene" path="res://..."]`
+
+Git 自动识别为 23 个 rename（相似度 97-100%），保留历史。
+
+#### 2. 更新 .gitignore
+**新增规则**:
+- `.DS_Store`（macOS 残留）
+- `Thumbs.db`, `desktop.ini`（Windows 残留）
+- `.idea/`（JetBrains IDE）
+- `*.tmp`, `*.swp`（临时文件）
+- `.env`, `.env.local`（本地环境变量）
+
+#### 3. 一次性 commit 所有 `*.png.import`
+**问题**：之前 159 个 png.import 文件未追踪，每次 Godot 启动会重新生成
+**修复**：一次性 `git add -A` + commit，仓库从此自包含
+
+### 📚 文档
+
+#### 4. 重写 README.md
+- 与代码完全同步（之前的版本描述了过期的攻击范围 600px、HP 模式等）
+- 加入项目结构、关卡清单、架构表
+- 加入分支策略说明
+
+#### 5. 更新 GDD.md 到 v0.3
+- 与代码完全同步
+- 标注待实现项目（Stage 1-5 的目标）
+- 加入 ASCII 化改动记录
+
+#### 6. 本 CHANGELOG 条目
+记录 Stage 0 全部改动
+
+### ✅ 静态验证通过
+
+- 根目录无中文文件名
+- 所有 `ext_resource` 引用指向存在的文件
+- 所有 `.gd.uid` 都有对应 `.gd`
+- `scene_manager.gd` 的 level_chain 引用全部有效
+- Git 自动识别 23 个 rename（相似度 97-100%）
+
+### ⚠️ 待阿迈手动验证
+
+- [ ] Godot 打开项目，无报错
+- [ ] 主菜单 → 开始游戏 → 进入 Level 1
+- [ ] 7 关 + 6 boss 全部可正常进入
+- [ ] 存档点复活正常
+- [ ] 控制台无 NoneType 错误
+
+---
+

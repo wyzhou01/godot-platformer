@@ -15,7 +15,7 @@ var is_dead: bool = false
 var is_invincible: bool = false
 
 # --- 技能设置 ---
-@export var knight_scene: PackedScene = preload("res://骑士.tscn")
+@export var knight_scene: PackedScene = preload("res://knight_unit.tscn")
 var skill_timer: Timer
 
 @onready var player = get_tree().get_first_node_in_group("player")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bhqrjx84oefhi"]
 
-[ext_resource type="Script" uid="uid://bkev5beapkfim" path="res://追逐战boss.gd" id="1_ceggj"]
+[ext_resource type="Script" uid="uid://bkev5beapkfim" path="res://chase_boss.gd" id="1_ceggj"]
 [ext_resource type="Texture2D" uid="uid://pgfyvjnviro0" path="res://Sicklezeep/sickle_sheet.png" id="1_kr3nv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ceggj"]
