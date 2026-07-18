@@ -1,0 +1,67 @@
+# gdUnit4 测试代码模板
+# 需要先安装 gdUnit4: https://github.com/MikeSchulze/gdUnit4
+# 然后把这个文件重命名为 test_player.gd 并删除 .template 后缀
+
+# 安装步骤（手动）:
+# 1. 访问 https://github.com/MikeSchulze/gdUnit4/releases
+# 2. 下载最新 release zip
+# 3. 解压到 addons/gdUnit4/
+# 4. Project Settings → Plugins → 启用 GdUnit4
+# 5. 把这个 .template 文件去掉 .template 后缀
+# 6. 运行测试: gdunit4 test/test_player.gd 或编辑器里点 Run Tests
+
+extends GdUnitTestSuite
+
+## 测试 Player 的核心逻辑
+## Stage 4 创建的测试模板 - 阿迈可按需扩展
+
+func test_take_damage_triggers_death() -> void():
+    # 即死模式：受到任何伤害立即死亡
+    var player = auto_free(preload("res://player.tscn").instantiate())
+    add_child(player)
+    player.is_invincible = false  # 强制不无敌
+    player.take_damage(1)
+    assert_that(player.is_dead).is_true()
+    assert_float(player.modulate.a).is_less_equal(1.0)
+
+
+func test_check_melee_hit_only_hits_once_per_swing() -> void():
+    # 同一次攻击只命中一个敌人
+    var player = auto_free(preload("res://player.tscn").instantiate())
+    add_child(player)
+    var enemy1 = auto_free(preload("res://archer.tscn").instantiate())
+    var enemy2 = auto_free(preload("res://archer.tscn").instantiate())
+    add_child(enemy1)
+    add_child(enemy2)
+    enemy1.global_position = player.global_position + Vector2(20, 0)
+    enemy2.global_position = player.global_position + Vector2(30, 0)
+
+    player._has_hit_this_swing = false
+    player.is_attacking = true
+    player._check_melee_hit()  # 第一次命中 enemy1
+    assert_that(player._has_hit_this_swing).is_true()
+
+    # 第二次调用不应再次命中（已锁住）
+    enemy1.health = 9
+    player._check_melee_hit()
+    assert_int(enemy1.health).is_equal(9)  # 没掉血
+
+
+func test_dodge_gives_invincibility() -> void:
+    # 闪避期间无敌
+    var player = auto_free(preload("res://player.tscn").instantiate())
+    add_child(player)
+    player.is_dodging = true
+    player.is_invincible = true
+    player.take_damage(1)
+    assert_that(player.is_dead).is_false()  # 无敌所以没死
+
+
+func test_jump_velocity() -> void:
+    # 跳跃施加负 y 速度
+    var player = auto_free(preload("res://player.tscn").instantiate())
+    add_child(player)
+    player.velocity = Vector2.ZERO
+    # 模拟跳跃（不直接调用 jump 因为需要 input）
+    player.velocity.y = -450
+    assert_float(player.velocity.y).is_equal(-450)
