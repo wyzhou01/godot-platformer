@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  static-check:
+    name: Static Check
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run static check
+        run: python3 scripts/static_check.py
+
+  build-web:
+    name: Build Web (HTML5)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build with Godot 4.6 (Docker)
+        uses: barichello/godot-ci@v4.0.0
+        with:
+          godot-version: 4.6
+          name: web
+          preset: web
+          deploy: false
+          output-path: build/web
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: build/web/
+          if-no-files-found: warn
+          retention-days: 7
