@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://d3l2t6of5qcey"]
 
 [ext_resource type="Texture2D" uid="uid://b0vxo8yg07anh" path="res://Dungeon Tile Set.png" id="1_n8kr6"]
-[ext_resource type="PackedScene" uid="uid://bhmbbcu3kyba8" path="res://发呀的红.tscn" id="2_rpwvo"]
+[ext_resource type="PackedScene" uid="uid://bhmbbcu3kyba8" path="res://fire_red.tscn" id="2_rpwvo"]
 [ext_resource type="PackedScene" uid="uid://bmc2x1006rlwc" path="res://player.tscn" id="3_ccc0p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rpwvo"]
