@@ -17,6 +17,20 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 [autoload]
 
 SceneManager="*res://scene_manager.gd"
+AppConfig="*res://addons/maaacks_game_template/base/nodes/autoloads/app_config/app_config.tscn"
+SceneLoader="*res://addons/maaacks_game_template/base/nodes/autoloads/scene_loader/scene_loader.tscn"
+ProjectMusicController="*res://addons/maaacks_game_template/base/nodes/autoloads/music_controller/project_music_controller.tscn"
+ProjectUISoundController="*res://addons/maaacks_game_template/base/nodes/autoloads/ui_sound_controller/project_ui_sound_controller.tscn"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/maaacks_game_template/plugin.cfg")
+
+[maaacks_game_template]
+
+disable_update_check=true
+disable_install_wizard=true
+disable_install_audio_busses=true
 
 [input]
 
