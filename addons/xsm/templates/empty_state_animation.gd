@@ -1,5 +1,4 @@
-tool
-extends StateAnimation
+@toolextends StateAnimation
 
 
 #

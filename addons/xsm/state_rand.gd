@@ -14,8 +14,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-tool
-class_name StateRand, "res://addons/xsm/icons/state_rand.png"
+@toolclass_name StateRand, "res://addons/xsm/icons/state_rand.png"
 extends State
 
 # StateRand Can chose a random state based on priorities
@@ -43,11 +42,11 @@ func _ready():
 	else:
 		seed(state_seed)
 
-	var _c1 = connect("child_entered_tree", self, "substate_entered")
-	var _c2 = connect("child_exiting_tree", self, "substate_exiting")
+	var _c1 = self.child_entered_tree.connect(self.substate_entered)
+	var _c2 = self.child_exiting_tree.connect(self.substate_exiting)
 	for c in get_children():
 		if c.get_class() == "State":
-			var _conn = c.connect("renamed", self, "substate_renamed", [c.name, c])
+			var _conn = c.renamed.connect(self.substate_renamed.bind(c.name, c))
 
 
 func set_randomized(value):
@@ -117,7 +116,7 @@ func _process(delta):
 func substate_entered(node):
 	if node.get_class() == "State":
 		priorities[node.name] = 1
-		var _c = node.connect("renamed", self, "substate_renamed", [node.name, node])
+		var _c = node.renamed.connect(self.substate_renamed.bind(node.name, node))
 
 
 func substate_exiting(node):
@@ -131,5 +130,5 @@ func substate_renamed(old_name, node):
 	var old_priority = priorities[old_name]
 	priorities.erase(old_name)
 	priorities[node.name] = old_priority
-	node.disconnect("renamed", self, "substate_renamed")
-	var _c = node.connect("renamed", self, "substate_renamed", [node.name, node])
+	node.renamed.disconnect(self.substate_renamed)
+	var _c = node.renamed.connect(self.substate_renamed.bind(node.name, node))

@@ -14,8 +14,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-tool
-class_name StateAnimation, "res://addons/xsm/icons/state_animation.png"
+@toolclass_name StateAnimation, "res://addons/xsm/icons/state_animation.png"
 extends State
 
 # StateAnimation is there for all your States that play an animation on enter
@@ -58,8 +57,8 @@ var animation_player: NodePath = NodePath() setget set_animation_player
 # INIT
 #
 func _ready() -> void:
-	if Engine.is_editor_hint() and not is_connected("renamed", self, "_on_StateAnimation_renamed"):
-		var _conn = connect("renamed", self, "_on_StateAnimation_renamed")
+	if Engine.is_editor_hint() and not is_connected("renamed"):
+		var _conn = self.renamed.connect(self._on_StateAnimation_renamed)
 	
 	set_anim_on_enter(anim_on_enter)
 	if not animation_player or animation_player.is_empty():
@@ -199,9 +198,9 @@ func play(anim: String, custom_speed: float = 1.0, from_end: bool = false) -> vo
 			# anim_player.stop()
 			anim_player.play(anim)
 			# The goal here is to provide a way to change state automatically at the end of an animation
-			if anim_player.is_connected("animation_finished", self, "_on_AnimationPlayer_animation_finished"):
-				anim_player.disconnect("animation_finished", self, "_on_AnimationPlayer_animation_finished")
-			anim_player.connect("animation_finished", self, "_on_AnimationPlayer_animation_finished")
+			if anim_player.animation_finished.is_connected(self._on_AnimationPlayer_animation_finished):
+				anim_player.animation_finished.disconnect(self._on_AnimationPlayer_animation_finished)
+			anim_player.animation_finished.connect(self._on_AnimationPlayer_animation_finished)
 
 
 func play_backwards(anim: String) -> void:
@@ -271,8 +270,8 @@ func exit(args = null) -> void:
 	chained = false
 	anim_times_played = 0
 	var anim_player = get_node_or_null(animation_player)
-	if anim_player and anim_player.is_connected("animation_finished", self, "_on_AnimationPlayer_animation_finished"):
-		anim_player.disconnect("animation_finished", self, "_on_AnimationPlayer_animation_finished")
+	if anim_player and anim_player.animation_finished.is_connected(self._on_AnimationPlayer_animation_finished):
+		anim_player.animation_finished.disconnect(self._on_AnimationPlayer_animation_finished)
 
 	.exit(args)
 		

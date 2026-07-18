@@ -1,5 +1,4 @@
-tool
-extends StateLoop
+@toolextends StateLoop
 
 
 #

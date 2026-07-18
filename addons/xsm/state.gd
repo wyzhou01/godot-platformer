@@ -14,8 +14,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-tool
-class_name State, "res://addons/xsm/icons/state.png"
+@toolclass_name State, "res://addons/xsm/icons/state.png"
 extends Node
 
 # To use this plugin, you should inherit this class or the typed inheritances
@@ -177,7 +176,7 @@ func _ready() -> void:
 	# In editor only
 	else:
 		# Deal with script changes issues:
-		connect("script_changed", self, "_on_script_changed")
+		self.script_changed.connect(self._on_script_changed)
 
 
 func _exit_tree() -> void:
@@ -648,7 +647,7 @@ func add_timer(timer_name: String, time: float) -> Timer:
 	timer.set_name(timer_name)
 	timer.set_one_shot(true)
 	timer.start(time)
-	timer.connect("timeout", self, "_on_timer_timeout", [timer_name])
+	timer.timeout.connect(self._on_timer_timeout.bind(timer_name))
 	return timer
 
 
